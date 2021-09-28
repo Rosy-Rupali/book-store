@@ -1,0 +1,12 @@
+.test1 {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+.login-texfields {
+  margin-bottom: 10px;
+}
+.loginButtons {
+  display: flex;
+  justify-content: space-between;
+}

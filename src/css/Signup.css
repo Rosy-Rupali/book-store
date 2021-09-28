@@ -1,0 +1,8 @@
+.test{
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+}
+.signup-texfields {
+  margin-bottom: 10px;
+}

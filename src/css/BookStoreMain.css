@@ -1,0 +1,51 @@
+.mainContainer-bookstore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  background-color: #919191;
+}
+.container-bookstore {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 45%;
+  height: 50%;
+  background: #e0dddd 0% 0% no-repeat padding-box;
+  border-radius: 21px;
+}
+.image-heading {
+  display: flex;
+  flex-direction: column;
+  padding-left: 30px;
+}
+.trolley {
+  width: 200px;
+  height: 200px;
+  border: none;
+  border-radius: 100px;
+}
+.formContainer-pages {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 5px 15px #00000029;
+  border: 1px solid #e4e4e4;
+  border-radius: 6px;
+  opacity: 1;
+  width: 53%;
+  height: 360px;
+}
+.formButtons {
+  display: flex;
+  justify-content: space-around;
+}
+.loginButton {
+  color: #000000 !important;
+}
+.signupButton {
+  color: #000000 !important;
+}
+.show{
+  padding-left: 10%;
+  padding-right: 10%;
+}
