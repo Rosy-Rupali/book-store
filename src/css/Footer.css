@@ -1,0 +1,13 @@
+.footer-container {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  background-color: #2e1d1e;
+  color: #fff;
+  padding: 4px;
+}
+.footer-para {
+  font-size: 13px;
+  text-align: center;
+  padding-left: 10%;
+}

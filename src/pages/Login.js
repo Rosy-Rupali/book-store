@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import {login} from '../Services/DataService.js' 
+import {useHistory} from 'react-router'
 import "../css/Login.css";
 
 const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
@@ -11,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState(true);
   const [passwordError, setPasswordError] = useState(true);
+  const history = useHistory();
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
@@ -49,6 +51,7 @@ const Login = () => {
         .then((response) => {
           console.log(response);
           localStorage.setItem("Accesstoken",response.data.result.accessToken);
+          history.push("/home")
         })
         .catch((error) => {
           console.log(error);
