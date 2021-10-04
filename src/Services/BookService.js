@@ -1,4 +1,7 @@
 import axios from "axios";
+import store from "../store/store.js";
+
+const storeState = store.getState();
 const baseUrl = "https://new-bookstore-backend.herokuapp.com/";
 const config = {
   headers: {
@@ -18,6 +21,7 @@ export const addCart = async (product_id) => {
     {},
     config
   );
+  store.dispatch({ type: "addCart" });
   console.log(response);
   return response;
 };
@@ -28,24 +32,19 @@ export const addWishList = async (product_id) => {
     {},
     config
   );
+
   console.log(response);
   return response;
 };
 
 export const getFromCart = async () => {
-  let response = await axios.get(
-    `${baseUrl}bookstore_user/get_cart_items`,
-    config
-  );
+  let response = await axios.get(`${baseUrl}bookstore_user/get_cart_items`);
   console.log(response);
   return response;
 };
 
-export const  getFromWishList = async() => {
-  let response = await axios.get(
-    `${baseUrl}bookstore_user/get_wishlist_items`,
-    config
-  );
+export const getFromWishList = async () => {
+  let response = await axios.get(`${baseUrl}bookstore_user/get_wishlist_items`);
   console.log(response);
   return response;
 };
@@ -64,11 +63,12 @@ export const removeFromCart = async (book_id) => {
     `${baseUrl}bookstore_user/remove_cart_item/${book_id}`,
     config
   );
+  store.dispatch({ type: "substractCart" });
   console.log(response);
   return response;
 };
 
-export const removeFromWishlist = async(book_id) => {
+export const removeFromWishlist = async (book_id) => {
   let response = await axios.delete(
     `${baseUrl}bookstore_user/remove_wishlist_item/${book_id}`,
     config
@@ -78,21 +78,13 @@ export const removeFromWishlist = async(book_id) => {
 };
 
 export const customerDetails = async (data) => {
-  let response = await axios.put(
-    `${baseUrl}bookstore_user/edit_user`,
-    data,
-    config
-  );
+  let response = await axios.put(`${baseUrl}bookstore_user/edit_user`, data);
   console.log(response);
   return response;
 };
 
 export const addOrder = async (data) => {
-  let response = await axios.post(
-    `${baseUrl}bookstore_user/add/order`,
-    data,
-    config
-  );
+  let response = await axios.post(`${baseUrl}bookstore_user/add/order`, data);
   console.log(response);
   return response;
 };
