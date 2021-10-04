@@ -13,7 +13,7 @@ import "../css/Cart.css";
 import Footer from "./Footer";
 import { getFromCart, cartitemQuantity, removeFromCart, customerDetails, addOrder } from "../Services/BookService";
 import { useHistory } from "react-router";
-
+import { connect } from "react-redux";
 
 
 
@@ -33,17 +33,6 @@ const Cart = (props) => {
   const [stateError, setStateError] = useState(true);
   const [opencustDetails, setOpenCustDetails] = useState(true);
   const [openOrderSum, setOpenOrderSum] = useState(true);
-
-  const getCartItems = () => {
-    getFromCart()
-      .then((response) => {
-        console.log(response);
-        setCart(response.data.result);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   const handlefName = (e) => {
     setfName(e.target.value);
@@ -110,6 +99,17 @@ const Cart = (props) => {
         console.log(error)
       })
     }
+  };
+
+  const getCartItems = () => {
+    getFromCart()
+      .then((response) => {
+        console.log(response);
+        setCart(response.data.result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   function incrementValue(book) {
     let value = book.quantityToBuy;
@@ -201,14 +201,14 @@ const Cart = (props) => {
         </div>
         <div className="main-container">
           <div className="cart-container">
-            <p className="mycart-tag">My Cart({cart.length})</p>
+           <p className="mycart-tag">My Cart({cart.length})</p>
             {cart.map((book) => (
               <div className="book-image2">
                 <img className="image2" src={bookImage} alt="book" />
                 <div className="details-cart">
                   <h3 className="head-tagname">{book.product_id.bookName}</h3>
                   <p className="head-tag-para">by {book.product_id.author}</p>
-                  <h5 className="head-tag">Rs {book.product_id.price}</h5>
+                  <h5 className=" head-tag">Rs {book.product_id.price}</h5>
                   <div className="cart-buttons">
                     <div className="container1">
                       <input
@@ -418,4 +418,11 @@ const Cart = (props) => {
     </div>
   );
 };
-export default Cart;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    count: state.cartCountReducer.count,
+  };
+};
+export default connect(mapStateToProps)(Cart);
+
