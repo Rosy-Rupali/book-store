@@ -36,7 +36,7 @@
 .wish {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 48%;
   height: 100%;
   background-color: #000;
@@ -67,10 +67,11 @@
   padding: 15px;
   background-color: #f5f5f5;
   height: 200px;
-  width:80%;
+  width: 80%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  border: 2px solid green;
 }
 .feedback-tag {
   margin: 20px 0 15px 0;
@@ -79,19 +80,21 @@
   font-size: 16px;
 }
 .views {
-  padding: 6px;
-  width: 420px;
+  width: 100%;
   background-color: white;
   height: auto;
   text-align: start;
 }
 .views-tag {
+  padding-left: 2%;
   color: #ccc;
   font: Roboto;
   font-weight: 500;
 }
 .submit {
-  margin-left: 360px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
   margin-top: 20px;
 }
 .star-icon {
@@ -103,17 +106,17 @@
   font-weight: 500;
 }
 .des-head {
+  height: 3%;
   font: Roboto;
-  font-size: 23px;
+  font-size: 25px;
   font-weight: 500;
-  margin: 0;
-  padding: 0;
 }
 .des-para {
+  height: 3%;
   padding-top: 2%;
   font: Roboto;
   color: rgb(138, 132, 132);
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 500;
 }
 .des-Bookhead {
@@ -126,21 +129,23 @@
 }
 .des-Bookpara {
   text-align: start;
-  font-size: 10px;
+  font-size: 13px;
 }
 .green-btn1 {
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin-top: 5px;
+  margin-bottom: 3px;
   font-size: small;
   border-radius: 5px;
   width: 10%;
-  height: 5%;
+  height: 25px;
   color: white;
   background-color: green;
 }
 .des-price {
+  height: 3%;
   font: Roboto;
   font-size: 23px;
   font-weight: 600;
@@ -169,4 +174,27 @@
 .user1 {
   width: 3px;
   height: 3px;
+}
+
+@media only screen and (max-width: 1100px) and (min-width: 601px) {
+  .block1 {
+    width: 40%;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .block1 {
+    width: 90%;
+  }
+  .block2 {
+    align-self:flex-start;
+    width: 70%;
+  }
+  .green-btn1{
+    width: 15%;
+  }
 }
