@@ -12,6 +12,8 @@
   flex-wrap: nowrap;
 }
 .order-details {
+  display: flex;
+  flex-direction: column;
   border: 1px solid #ccc;
   height: auto;
   width: 50%;
@@ -36,19 +38,33 @@
 }
 .order-tag {
   font-weight: 500;
-  font-size: 15px;
+  font-size: 1.2em;
   margin: 0;
 }
 .orderDetails-tag {
   width: 30%;
   text-align: center;
-  font-size: 13px;
+  font-size: 1.0em;
+}
+@media only screen and (max-width: 1100px)and (min-width: 601px) {
+  .order-details {
+    width: 95%;
+  }
+  .order-detail1 {
+    width: 98%;
+  }
 }
 @media only screen and (max-width: 600px) {
   .order-details {
-    width: 100%;
+    width: 90%;
   }
   .order-detail1 {
-    width: 100%;
+    width: 98%;
+  }
+  .order-tag{
+    font-size: 0.8em;
+  }
+  .orderDetails-tag {
+    font-size: 0.6em;
   }
 }

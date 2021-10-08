@@ -25,9 +25,9 @@
   justify-content: space-between;
   align-items: center;
 }
-.para{
-    font: 1.3em sans-serif;
-    font-weight: 400 !important;
+.para {
+  font: 1.3em sans-serif;
+  font-weight: 400 !important;
 }
 .searchsection {
   height: 35px;
@@ -42,14 +42,14 @@
 }
 .search-input {
   align-self: center;
-  border: none;
+  border: none !important;
 }
-.header-icons{
-    display: flex;
-    flex-direction: row;
-    width: 20%;
-    align-items: center;
-    justify-content: space-around;
+.header-icons {
+  display: flex;
+  flex-direction: row;
+  width: 20%;
+  align-items: center;
+  justify-content: space-around;
 }
 .profile-cart {
   display: flex;
@@ -63,4 +63,54 @@
   font-weight: 400;
   font-family: Arial, Helvetica, sans-serif;
   margin-top: 4px;
+}
+@media only screen and (max-width: 1100px) and (min-width: 801px) {
+  .headerContainer {
+    width: 75%;
+  }
+  .searchsection {
+    width: 70%;
+    margin-left: 5%;
+  }
+}
+@media only screen and (max-width: 800px) and (min-width: 401px) {
+  .mainHeaderContainer {
+    height: 9vh;
+  }
+  .headerContainer {
+    width: 70%;
+  }
+  .searchsection {
+    width: 50%;
+    margin-left: 5%;
+  }
+  .search-input {
+    width: 55%;
+  }
+  .header-icons {
+    width: 25%;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .mainHeaderContainer {
+    height: 7vh;
+  }
+  .testHeaderContainer {
+    margin-left: 2%;
+    width: 95%;
+  }
+  .searchsection {
+    width: 100px;
+  }
+  .search-input {
+    width: 55%;
+  }
+  .para {
+    font: 0.9em sans-serif;
+  }
+  .header-icons {
+    width: 25%;
+    justify-content: space-between;
+  }
 }
