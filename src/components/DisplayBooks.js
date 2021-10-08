@@ -66,13 +66,13 @@ const DisplayBook = (props) => {
                     />
                   </div>
                   <div className="book-info">
-                    <h3 className="book-name">{book.bookName}</h3>
-                    <p className="book-author">by {book.author}</p>
+                    <div className="book-name">{book.bookName}</div>
+                    <div className="book-author">by {book.author}</div>
                     <div className="rating">
                       4.5
                       <StarIcon style={{ fontSize: "small" }} />
                     </div>
-                    <h3>Rs.{book.price} </h3>
+                    <div className="book-price">Rs.{book.price}</div>
                   </div>
                 </CardContent>
               </Card>

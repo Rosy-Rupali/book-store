@@ -11,11 +11,15 @@ import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
 import "../css/Cart.css";
 import Footer from "./Footer";
-import { getFromCart, cartitemQuantity, removeFromCart, customerDetails, addOrder } from "../Services/BookService";
+import {
+  getFromCart,
+  cartitemQuantity,
+  removeFromCart,
+  customerDetails,
+  addOrder,
+} from "../Services/BookService";
 import { useHistory } from "react-router";
 import { connect } from "react-redux";
-
-
 
 const Cart = (props) => {
   const history = useHistory();
@@ -25,8 +29,7 @@ const Cart = (props) => {
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
   const [type, setType] = useState("");
-  const[area, setArea] = useState("");
-  //const [placeOrderDisabled, setplaceOrderDisabled] = useState(false);
+  const [area, setArea] = useState("");
   const [fNameError, setfNameError] = useState(true);
   const [mobileError, setmobileError] = useState(true);
   const [cityError, setCityError] = useState(true);
@@ -50,8 +53,8 @@ const Cart = (props) => {
     setType(e.target.value);
   };
   const handleArea = (e) => {
-    setArea(e.target.value)
-  }
+    setArea(e.target.value);
+  };
   const validation = () => {
     let isError = false;
     if (fName === "") {
@@ -78,8 +81,8 @@ const Cart = (props) => {
     isError = fNameError || stateError || cityError || mobileError;
     return isError;
   };
- 
-  const handleContinue = () => {
+
+  const handleContinue = (e) => {
     let isValid = validation();
     if (!isValid) {
       setOpenOrderSum(true);
@@ -89,28 +92,42 @@ const Cart = (props) => {
         fullAddress: area,
         city: city,
         state: state,
-      }
+      };
       customerDetails(data)
-      .then((response) => {
-        console.log(response);
-        setOpenOrderSum(false);
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+        .then((response) => {
+          console.log(response);
+          setOpenOrderSum(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
+    e.target.style.display = "none";
   };
 
   const getCartItems = () => {
     getFromCart()
       .then((response) => {
-        console.log(response);
+        console.log(response, "okkkk");
         setCart(response.data.result);
+        console.log(cart, "hiiiiiii");
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
+  // const getCartItems1 = () => {
+  //   getFromCart()
+  //     .then((response) => {
+  //       console.log(response, "okkkk");
+  //       setCart([...cart,response.data.result]);
+  //       console.log(cart, "hiiiiiii");
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
   function incrementValue(book) {
     let value = book.quantityToBuy;
     if (value < 10) {
@@ -130,28 +147,33 @@ const Cart = (props) => {
       });
   }
 
-
   function decrementValue(book) {
-    let value = book.quantityToBuy;
-    if (value > 1) {
-      value = value - 1;
-    }
-    let data = {
-      quantityToBuy: value,
-    };
-    cartitemQuantity(book._id, data)
-      .then((response) => {
-        console.log("on decreasing", response);
-        getCartItems();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    console.log(book, "rosy")
+    cart.filter((currentItem) => {
+      console.log(currentItem,"rupali")
+      if (currentItem._id === book._id) {
+        let value = book.quantityToBuy;
+        if (value > 1) {
+         
+          value = value - 1;
+          const cartItem_id = book._id;
+          let data = {
+            quantityToBuy: value,
+          };
+          cartitemQuantity(cartItem_id, data)
+            .then((response) => {
+              console.log("on decreasing", response);
+              getCartItems();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      }
+    });
   }
- 
 
   const handleRemoveCartItem = (id) => {
-    // setplaceOrderDisabled(true)
     removeFromCart(id)
       .then((response) => {
         console.log("remove cartitem", response);
@@ -161,36 +183,37 @@ const Cart = (props) => {
         console.log(err);
       });
   };
-  const handleClick = () => {
-   setOpenCustDetails(false);  
+  const handleClick = (e) => {
+    setOpenCustDetails(false);
+    e.target.style.display = "none";
   };
   const handleCheckout = () => {
     let orderArray = [];
-    for(let i=0; i<cart.length; i++){
+    for (let i = 0; i < cart.length; i++) {
       let bookDetails = {
         product_id: cart[i]._id,
         product_name: cart[i].product_id.bookName,
         product_quantity: cart[i].quantityToBuy,
         product_price: cart[i].product_id.price,
       };
-      orderArray.push(bookDetails)
+      orderArray.push(bookDetails);
     }
     let data = {
-      orders: orderArray
-    }
+      orders: orderArray,
+    };
     addOrder(data)
-    .then((response) => {
-      console.log("order success", response);
-      console.log(cart[0]._id);
-      history.push('/orderplaced')
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then((response) => {
+        console.log("order success", response);
+        console.log(cart[0]._id);
+        history.push("/orderplaced");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   useEffect(() => {
     getCartItems();
-  }, []);
+  }, [cart.quantityToBuy]);
   return (
     <div>
       <HomePageHeader />
@@ -201,14 +224,14 @@ const Cart = (props) => {
         </div>
         <div className="main-container">
           <div className="cart-container">
-           <p className="mycart-tag">My Cart({cart.length})</p>
+            <p className="mycart-tag">My Cart({cart.length})</p>
             {cart.map((book) => (
               <div className="book-image2">
                 <img className="image2" src={bookImage} alt="book" />
                 <div className="details-cart">
-                  <h3 className="head-tagname">{book.product_id.bookName}</h3>
-                  <p className="head-tag-para">by {book.product_id.author}</p>
-                  <h5 className=" head-tag">Rs {book.product_id.price}</h5>
+                  <div className="head-tagname">{book.product_id.bookName}</div>
+                  <div className="head-tag-para">by {book.product_id.author}</div>
+                  <div className=" head-tag">Rs {book.product_id.price}</div>
                   <div className="cart-buttons">
                     <div className="container1">
                       <input
@@ -250,7 +273,6 @@ const Cart = (props) => {
                   marginBottom: "10px",
                 }}
                 onClick={handleClick}
-                // disabled={placeOrderDisabled}
               >
                 Place order
               </Button>
@@ -283,7 +305,7 @@ const Cart = (props) => {
                     helperText={!mobileError ? "Invalid number" : ""}
                     name="mobile"
                     label="Mobile Number"
-                    variant="outlined" 
+                    variant="outlined"
                     size="small"
                     onChange={handleMobile}
                     fullWidth
@@ -301,7 +323,7 @@ const Cart = (props) => {
                       resize: "none",
                       fontFamily: "sans-serif",
                       backgroundColor: "transparent",
-                      marginBottom: '3%',
+                      marginBottom: "3%",
                     }}
                     variant="outlined"
                   />
@@ -388,9 +410,9 @@ const Cart = (props) => {
               <p className="mycart-tag">Order Summary</p>
               {cart.map((book) => (
                 <div className="book-image2">
-                <img className="image2" src={bookImage} alt="book" />
-                <div className="details-cart">
-                <h3 className="head-tagname">{book.product_id.bookName}</h3>
+                  <img className="image2" src={bookImage} alt="book" />
+                  <div className="details-cart">
+                    <h3 className="head-tagname">{book.product_id.bookName}</h3>
                     <p className="head-tag-para">by {book.product_id.author}</p>
                     <h5 className="head-tag">Rs {book.product_id.price}</h5>
                   </div>
@@ -425,4 +447,3 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps)(Cart);
-

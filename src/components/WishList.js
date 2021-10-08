@@ -53,7 +53,8 @@ const WishList = () => {
   };
 
   return (
-    <div>
+    <div className="wishlist-maincontainer">
+    <div className="wishlist-testcontainer">
       <HomePageHeader />
       <div className="header1-text1-div">
         <p className="header-text1">Home/</p>
@@ -67,9 +68,9 @@ const WishList = () => {
               <div className="wishimg-details">
                 <img className="image2" src={bookImage} alt="book" />
                 <div className="details-cart">
-                  <h3 className="head-tagname">{book.product_id.bookName}</h3>
-                  <p className="head-tag-para">by {book.product_id.author}</p>
-                  <h5 className="head-tag">Rs {book.product_id.price}</h5>
+                  <div className="head-tagname">{book.product_id.bookName}</div>
+                  <div className="head-tag-para">by {book.product_id.author}</div>
+                  <div className="head-tag">Rs {book.product_id.price}</div>
                 </div>
               </div>
 
@@ -91,6 +92,7 @@ const WishList = () => {
         </div>
       </div>
       <Footer />
+    </div>
     </div>
   );
 };

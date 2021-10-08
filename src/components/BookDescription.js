@@ -10,7 +10,6 @@ import { useHistory } from "react-router";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import "../css/BookDescription.css";
 import Avatar from "@mui/material/Avatar";
-
 import { addCart, addWishList, getBooks } from "../Services/BookService";
 
 const BookDescription = (props) => {
@@ -85,13 +84,13 @@ const BookDescription = (props) => {
           </div>
         </div>
         <div className="block2">
-          <h2 className="des-head">{books.bookName}</h2>
-          <p className="des-para">{books.author}</p>
+          <div className="des-head">{books.bookName}</div>
+         <div className="des-para">{books.author}</div>
           <div className="green-btn1">
             4.5
             <StarIcon style={{ fontSize: "medium" }} />
           </div>
-          <h2 className="des-price">Rs.{books.price}</h2>
+          <div className="des-price">Rs.{books.price}</div>
           <div className="desc-bookdetails">
             <Divider />
             <h4 className="des-Bookhead"> Book Details</h4>
