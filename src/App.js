@@ -4,7 +4,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   BrowserRouter,
 } from "react-router-dom";
 
@@ -14,6 +13,7 @@ import BookDescription from "./components/BookDescription";
 import Cart from "./components/Cart";
 import OrderPlaced from "./components/OrderPlaced";
 import WishList from "./components/WishList";
+import ForgetPassword from "./pages/ForgotPassword";
 function App() {
   return (
     <div className="App">
@@ -25,6 +25,7 @@ function App() {
         <Route path="/cart" component={Cart} />
         <Route path="/orderplaced" component={OrderPlaced} />
         <Route path="/wishlist" component={WishList} />
+        <Route path="/forgetpassword" component={ForgetPassword} />
         </Switch>
       </BrowserRouter>
     </div>
