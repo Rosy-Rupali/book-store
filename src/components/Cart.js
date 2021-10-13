@@ -8,7 +8,6 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
-import FormLabel from "@mui/material/FormLabel";
 import "../css/Cart.css";
 import Footer from "./Footer";
 import {
@@ -19,9 +18,8 @@ import {
   addOrder,
 } from "../Services/BookService";
 import { useHistory } from "react-router";
-import { connect } from "react-redux";
 
-const Cart = (props) => {
+const Cart = () => {
   const history = useHistory();
   const [cart, setCart] = useState([]);
   const [fName, setfName] = useState("");
@@ -30,6 +28,7 @@ const Cart = (props) => {
   const [state, setState] = useState("");
   const [type, setType] = useState("");
   const [area, setArea] = useState("");
+  const [removeItem, setRemoveItem] = useState(false);
   const [fNameError, setfNameError] = useState(true);
   const [mobileError, setmobileError] = useState(true);
   const [cityError, setCityError] = useState(true);
@@ -108,26 +107,13 @@ const Cart = (props) => {
   const getCartItems = () => {
     getFromCart()
       .then((response) => {
-        console.log(response, "okkkk");
         setCart(response.data.result);
-        console.log(cart, "hiiiiiii");
       })
       .catch((err) => {
         console.log(err);
       });
   };
 
-  // const getCartItems1 = () => {
-  //   getFromCart()
-  //     .then((response) => {
-  //       console.log(response, "okkkk");
-  //       setCart([...cart,response.data.result]);
-  //       console.log(cart, "hiiiiiii");
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
   function incrementValue(book) {
     let value = book.quantityToBuy;
     if (value < 10) {
@@ -148,35 +134,28 @@ const Cart = (props) => {
   }
 
   function decrementValue(book) {
-    console.log(book, "rosy")
-    cart.filter((currentItem) => {
-      console.log(currentItem,"rupali")
-      if (currentItem._id === book._id) {
-        let value = book.quantityToBuy;
-        if (value > 1) {
-         
-          value = value - 1;
-          const cartItem_id = book._id;
-          let data = {
-            quantityToBuy: value,
-          };
-          cartitemQuantity(cartItem_id, data)
-            .then((response) => {
-              console.log("on decreasing", response);
-              getCartItems();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-      }
-    });
+    let value = book.quantityToBuy;
+    if (value > 1) {
+      value = value - 1;
+    }
+    let data = {
+      quantityToBuy: value,
+    };
+    cartitemQuantity(book._id, data)
+      .then((response) => {
+        console.log("on decreasing", response);
+        getCartItems();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const handleRemoveCartItem = (id) => {
     removeFromCart(id)
       .then((response) => {
         console.log("remove cartitem", response);
+        setRemoveItem(!removeItem);
         getCartItems();
       })
       .catch((err) => {
@@ -213,10 +192,10 @@ const Cart = (props) => {
   };
   useEffect(() => {
     getCartItems();
-  }, [cart.quantityToBuy]);
+  }, []);
   return (
     <div>
-      <HomePageHeader />
+      <HomePageHeader remove={removeItem} />
       <div>
         <div className="header1-text1-div">
           <p className="header-text1">Home/</p>
@@ -230,7 +209,9 @@ const Cart = (props) => {
                 <img className="image2" src={bookImage} alt="book" />
                 <div className="details-cart">
                   <div className="head-tagname">{book.product_id.bookName}</div>
-                  <div className="head-tag-para">by {book.product_id.author}</div>
+                  <div className="head-tag-para">
+                    by {book.product_id.author}
+                  </div>
                   <div className=" head-tag">Rs {book.product_id.price}</div>
                   <div className="cart-buttons">
                     <div className="container1">
@@ -242,7 +223,7 @@ const Cart = (props) => {
                       />
                       <input
                         type="text"
-                        defaultValue={book.quantityToBuy}
+                        placeholder={book.quantityToBuy}
                         size="1"
                         className="box-quantity"
                       />
@@ -440,10 +421,4 @@ const Cart = (props) => {
     </div>
   );
 };
-const mapStateToProps = (state) => {
-  console.log(state);
-  return {
-    count: state.cartCountReducer.count,
-  };
-};
-export default connect(mapStateToProps)(Cart);
+export default Cart;

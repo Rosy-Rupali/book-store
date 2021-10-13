@@ -7,20 +7,18 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import Button from '@mui/material/Button';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
 import "../css/HeaderHomePage.css";
-import { createStore } from "redux";
-import store from "../store/store.js";
 import { useHistory } from "react-router";
-import Divider from "@mui/material/Divider";
+import { getFromCart} from "../Services/BookService";
 
 const HomePageHeader = (props) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
+  const [cartCount, setCartCount] = useState("");
   const open = Boolean(anchorEl);
-  const storeState = store.getState();
-  console.log(storeState);
-  const cartCount = storeState.cartCountReducer.count;
-  console.log(cartCount);
 
   const handleLogo = () => {
     history.push("/home");
@@ -35,8 +33,11 @@ const HomePageHeader = (props) => {
   const handleWish = () => {
     history.push("/wishlist");
   };
+  const handleCartItems = () => {
+    history.push('/cart');
+  }
   const handleLogout = () => {
-    
+    history.push('/');
   };
   const handleSearch = (e) => {
     props.dispatch({
@@ -44,6 +45,20 @@ const HomePageHeader = (props) => {
       searchData: e.target.value,
     });
   };
+
+  const getCartItems = () => {
+    getFromCart()
+      .then((response) => {
+        setCartCount(response.data.result.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    getCartItems();
+  }, [props.remove]);
   return (
     <div className="mainHeaderContainer">
       <div className="testHeaderContainer">
@@ -68,17 +83,19 @@ const HomePageHeader = (props) => {
               onClick={handleClickPerson}
             />
             <Menu anchorEl={anchorEl} open={open} onClose={handleClosePerson}>
-              <MenuItem onClick={handleLogo}>Home Page</MenuItem>
-              <Divider />
-              <MenuItem onClick={handleWish}>My WishList</MenuItem>
-              <Divider />
-              <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              <MenuItem onClick={handleLogo}><MenuBookOutlinedIcon fontSize="small" /> Home Page</MenuItem>
+              <MenuItem onClick={handleWish}><FavoriteBorderIcon fontSize="small" /> My WishList</MenuItem>
+              <Button  variant="contained" style={{
+                  color: "#fff",
+                  borderRadius: "3px",
+                  margin: "14px"
+                }} onClick={handleLogout}>Logout</Button>
             </Menu>
             <p className="profile-account-cart">Profile</p>
           </div>
           <div className="profile-cart">
-            <Badge color="secondary" badgeContent={cartCount}>
-              <img src={basket} alt="basket-icon" />
+            <Badge color="secondary" badgeContent={cartCount} className="badge-container">
+              <img src={basket} alt="basket-icon" onClick={handleCartItems} />
             </Badge>
             <p className="profile-account-cart">Cart</p>
           </div>
