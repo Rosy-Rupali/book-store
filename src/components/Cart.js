@@ -96,12 +96,13 @@ const Cart = () => {
         .then((response) => {
           console.log(response);
           setOpenOrderSum(false);
+          e.target.style.display = "none";
         })
         .catch((error) => {
           console.log(error);
         });
     }
-    e.target.style.display = "none";
+   
   };
 
   const getCartItems = () => {
@@ -194,7 +195,7 @@ const Cart = () => {
     getCartItems();
   }, []);
   return (
-    <div>
+    <div className="cart-MainContainer">
       <HomePageHeader remove={removeItem} />
       <div>
         <div className="header1-text1-div">
@@ -215,24 +216,23 @@ const Cart = () => {
                   <div className=" head-tag">Rs {book.product_id.price}</div>
                   <div className="cart-buttons">
                     <div className="container1">
-                      <input
-                        type="button"
+                      <button
                         onClick={() => decrementValue(book)}
-                        defaultValue="-"
                         className="decrement-button"
-                      />
+                        data-testid="btn-decrement"
+                      >-</button>
                       <input
                         type="text"
                         placeholder={book.quantityToBuy}
                         size="1"
+                        data-testid="counter-text"
                         className="box-quantity"
                       />
-                      <input
-                        type="button"
+                      <button
                         onClick={() => incrementValue(book)}
-                        defaultValue="+"
                         className="increment-button"
-                      />
+                        data-testid="btn-increment"
+                      >+</button>
                     </div>
                     <p
                       className="remove"
@@ -253,6 +253,7 @@ const Cart = () => {
                   padding: "7px 30px",
                   marginBottom: "10px",
                 }}
+                data-testid="place-btn"
                 onClick={handleClick}
               >
                 Place order

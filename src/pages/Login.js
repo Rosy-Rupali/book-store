@@ -38,6 +38,9 @@ const Login = () => {
     return isError;
   };
 
+  const forgetPassword = () => {
+    history.push('/forgetpassword');
+  }
   const handleLogin = () => {
     let isValid = validation();
     if (!isValid) {
@@ -64,7 +67,7 @@ const Login = () => {
       <div className="login-texfields">
         <TextField
           name="email"
-          label="Email id"
+          placeholder="Email id"
           error={!emailError}
           helperText={!emailError ? "Invalid Email" : ""}
           variant="outlined"
@@ -76,7 +79,7 @@ const Login = () => {
       <div className="signup-texfields">
         <TextField
           name="password"
-          label="password"
+          placeholder="password"
           error={!passwordError}
           helperText={!passwordError ? "password is Invalid" : ""}
           variant="outlined"
@@ -84,6 +87,7 @@ const Login = () => {
           fullWidth
           onChange={handlePassword}
         />
+        <div className="forgotpassword" onClick={forgetPassword}>Forget Password?</div>
       </div>
       <div>
       <Button
@@ -91,6 +95,7 @@ const Login = () => {
         className="login-btn"
         style={{ backgroundColor: "#802F34", color: "#ffffff" }}
         onClick={handleLogin}
+        data-testid="bookstore-card"
       >
         Login
       </Button>

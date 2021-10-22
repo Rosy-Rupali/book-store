@@ -1,5 +1,6 @@
 import React from "react";
 import BookStoreMain from "../pages/Bookstore";
+import { render } from "@testing-library/react";
 import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 
@@ -19,6 +20,12 @@ describe("renders signup and login container", () => {
   });
   it("mount Signup component", () => {
     expect(wrapper.find(".test")).toHaveLength(0);
+  });
+  it('image of coverpage', () => {
+    const { getByAltText } = render(
+      <BookStoreMain />
+    );
+    expect(getByAltText('basket-pic')).toBeDefined();
   });
 });
 

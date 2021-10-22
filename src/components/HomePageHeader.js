@@ -94,7 +94,7 @@ const HomePageHeader = (props) => {
             <p className="profile-account-cart">Profile</p>
           </div>
           <div className="profile-cart">
-            <Badge color="secondary" badgeContent={cartCount} className="badge-container">
+            <Badge color="secondary" badgeContent={cartCount} className="badge-container" data-testid="button-up" >
               <img src={basket} alt="basket-icon" onClick={handleCartItems} />
             </Badge>
             <p className="profile-account-cart">Cart</p>
