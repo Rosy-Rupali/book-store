@@ -1,11 +1,12 @@
 import { combineReducers} from 'redux';
 import searchBarReducer from './SearchBar';
 import bookDetailsReducer from './BookDesc';
-import cartCountReducer from './Cart.js';
+import itemReducer from './asyncItemReducer';
+
 
 const rootReducer = combineReducers({
     searchBarReducer,
     bookDetailsReducer,
-    cartCountReducer
+    itemReducer
 })
 export default rootReducer;

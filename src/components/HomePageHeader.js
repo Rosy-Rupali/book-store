@@ -7,17 +7,17 @@ import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Button from '@mui/material/Button';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import MenuBookOutlinedIcon from '@mui/icons-material/MenuBookOutlined';
+import Button from "@mui/material/Button";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import MenuBookOutlinedIcon from "@mui/icons-material/MenuBookOutlined";
 import "../css/HeaderHomePage.css";
 import { useHistory } from "react-router";
-import { getFromCart} from "../Services/BookService";
+import { fetchItems } from "../items/itemActions";
+
 
 const HomePageHeader = (props) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [cartCount, setCartCount] = useState("");
   const open = Boolean(anchorEl);
 
   const handleLogo = () => {
@@ -34,10 +34,10 @@ const HomePageHeader = (props) => {
     history.push("/wishlist");
   };
   const handleCartItems = () => {
-    history.push('/cart');
-  }
+    history.push("/cart");
+  };
   const handleLogout = () => {
-    history.push('/');
+    history.push("/");
   };
   const handleSearch = (e) => {
     props.dispatch({
@@ -46,19 +46,10 @@ const HomePageHeader = (props) => {
     });
   };
 
-  const getCartItems = () => {
-    getFromCart()
-      .then((response) => {
-        setCartCount(response.data.result.length);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
-    getCartItems();
-  }, [props.remove]);
+    props.fetchItems();
+  }, []);
+ 
   return (
     <div className="mainHeaderContainer">
       <div className="testHeaderContainer">
@@ -83,30 +74,52 @@ const HomePageHeader = (props) => {
               onClick={handleClickPerson}
             />
             <Menu anchorEl={anchorEl} open={open} onClose={handleClosePerson}>
-              <MenuItem onClick={handleLogo}><MenuBookOutlinedIcon fontSize="small" /> Home Page</MenuItem>
-              <MenuItem onClick={handleWish}><FavoriteBorderIcon fontSize="small" /> My WishList</MenuItem>
-              <Button  variant="contained" style={{
+              <MenuItem onClick={handleLogo}>
+                <MenuBookOutlinedIcon fontSize="small" /> Home Page
+              </MenuItem>
+              <MenuItem className="wish1" onClick={handleWish}>
+                <FavoriteBorderIcon fontSize="small" /> My WishList
+              </MenuItem>
+              <Button
+                variant="contained"
+                style={{
                   color: "#fff",
                   borderRadius: "3px",
-                  margin: "14px"
-                }} onClick={handleLogout}>Logout</Button>
+                  margin: "14px",
+                }}
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
             </Menu>
             <p className="profile-account-cart">Profile</p>
           </div>
-          <div className="profile-cart">
-            <Badge color="secondary" badgeContent={cartCount} className="badge-container" data-testid="button-up" >
+          <div className="profile-cart"> {props.itemData.loading ? ( <p>loading</p>) : props.itemData.error ? (<p>{props.itemData.error}</p>  ) : (
+            <Badge
+              color="secondary"
+              badgeContent={props.itemData.length}
+              className="badge-container"
+              data-testid="button-up"
+            >
               <img src={basket} alt="basket-icon" onClick={handleCartItems} />
-            </Badge>
+            </Badge>)}
             <p className="profile-account-cart">Cart</p>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 };
 const mapStateToProps = (state) => {
   return {
     searchData: state.searchBarReducer.searchData,
+    itemData: state.itemReducer.items
   };
 };
-export default connect(mapStateToProps)(HomePageHeader);
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    fetchItems: () => dispatch(fetchItems())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HomePageHeader);
