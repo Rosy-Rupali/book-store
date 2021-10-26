@@ -14,7 +14,6 @@ import "../css/HeaderHomePage.css";
 import { useHistory } from "react-router";
 import { fetchItems } from "../items/itemActions";
 
-
 const HomePageHeader = (props) => {
   const history = useHistory();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -40,16 +39,13 @@ const HomePageHeader = (props) => {
     history.push("/");
   };
   const handleSearch = (e) => {
-    props.dispatch({
-      type: "Search",
-      searchData: e.target.value,
-    });
+    props.Searching(e);
   };
 
   useEffect(() => {
     props.fetchItems();
   }, [props.remove]);
- 
+
   return (
     <div className="mainHeaderContainer">
       <div className="testHeaderContainer">
@@ -94,32 +90,44 @@ const HomePageHeader = (props) => {
             </Menu>
             <p className="profile-account-cart">Profile</p>
           </div>
-          <div className="profile-cart"> {props.itemData.loading ? ( <p>loading</p>) : props.itemData.error ? (<p>{props.itemData.error}</p>  ) : (
-            <Badge
-              color="secondary"
-              badgeContent={props.itemData.length}
-              className="badge-container"
-              data-testid="button-up"
-            >
-              <img src={basket} alt="basket-icon" onClick={handleCartItems} />
-            </Badge>)}
+          <div className="profile-cart">
+            {props.itemData.loading ? (
+              <p>loading</p>
+            ) : props.itemData.error ? (
+              <p>{props.itemData.error}</p>
+            ) : (
+              <Badge
+                color="secondary"
+                badgeContent={props.itemData.length}
+                className="badge-container"
+                data-testid="button-up"
+              >
+                <img src={basket} alt="basket-icon" onClick={handleCartItems} />
+              </Badge>
+            )}
             <p className="profile-account-cart">Cart</p>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 };
 const mapStateToProps = (state) => {
   return {
     searchData: state.searchBarReducer.searchData,
-    itemData: state.itemReducer.items
+    itemData: state.itemReducer.items,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return{
-    fetchItems: () => dispatch(fetchItems())
-  }
-}
+  return {
+    fetchItems: () => dispatch(fetchItems()),
+    Searching: (e) => {
+      dispatch({
+        type: "Search",
+        searchData: e.target.value,
+      });
+    },
+  };
+};
 export default connect(mapStateToProps, mapDispatchToProps)(HomePageHeader);

@@ -42,10 +42,8 @@ describe("testing the signup and login button click events", () => {
     comp.update();
     expect(comp.find(".loginButton")).toHaveLength(1);
   });
+  // it("testing of heading", () => {
+  //   expect(comp.find('h4').childAt(0).type()).toEqual('h3');
+  // })
 });
 
-// describe("testing the type of elements", () => {
-//   it("testing of heading", () => {
-//     expect(comp.find('h4').childAt(0).type()).toEqual('h3');
-//   })
-// })

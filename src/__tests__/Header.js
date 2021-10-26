@@ -28,17 +28,13 @@ describe("renders the header component", () => {
 describe("Input value", () => {
   it("updates on change", () => {
     const setSearch = jest.fn((value) => {});
-
     const { queryByPlaceholderText } = render(
       <Provider store={store}>
         <HomePageHeader setSearch={setSearch} />
       </Provider>
     );
-
     const searchInput = queryByPlaceholderText("Search...");
-
     fireEvent.change(searchInput, { target: { value: "test" } });
-
     expect(searchInput.value).toBe("test");
   });
   it("increments counter after 0.5s", async () => {
@@ -58,7 +54,7 @@ describe("Input value", () => {
 /***************************************************************************************************************** */
 
 describe("testing the menu items of profile", () => {
-  it("render the componeent", () => {
+  it("render the component", () => {
     expect(comp.find(".mainHeaderContainer")).toHaveLength(0);
   });
   it("testing the menu", () => {
