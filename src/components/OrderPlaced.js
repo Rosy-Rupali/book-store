@@ -14,11 +14,11 @@ const OrderPlaced = () => {
     history.push("/home");
   };
   return (
-    <div>
+    <div className="orderplaced-mainContainer">
       <HomePageHeader />
       <div className="orderplaced-container">
         <img src={order1} alt="order-placed-pic1" />
-        <h1 className="order-head">Order Placed Successfully</h1>
+        <h2 className="order-head">Order Placed Successfully</h2>
         <img src={order2} alt="order-placed-pic1" />
         <p className="order-para"> hurray!!! your order is confirmed <br />the order id is #123456
           save the order id for<br />further communication..
@@ -39,6 +39,7 @@ const OrderPlaced = () => {
         </div>
         <Button
           className="continue1"
+          type='button'
           style={{
             backgroundColor: "#3371b5",
             color: "#fff",

@@ -10,3 +10,11 @@
   display: flex;
   justify-content: space-between;
 }
+.forgotpassword{
+  display: flex;
+  justify-content: flex-end;
+  color: #9D9D9D;
+  /* font-size: 0.7em; */
+  font: normal normal normal 10px/13px Roboto;
+  font-weight: 500;
+}

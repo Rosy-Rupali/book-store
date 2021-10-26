@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { SignUp } from "../Services/DataService";
-// import InputAdornment from "@material-ui/core/InputAdornment";
-// import VisibilityOff from "@material-ui/icons/VisibilityOff";
-// import Visibility from "@material-ui/icons/Visibility";
-// import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
 import "../css/Signup.css";
 
 const nameRegex = /^[A-Z][a-z]{2,}$/;
@@ -18,7 +18,8 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mobile, setMobile] = useState("");
-//   const [showPassword, setShowPassword] = useState("");
+  // const[values, setValues] = useState({password: "", showPassword: false})
+  // const [showPassword, setShowPassword] = useState("");
 
   const [fnameError, setFnameError] = useState(true);
   const [emailError, setEmailError] = useState(true);
@@ -34,8 +35,12 @@ const Signup = () => {
 
   const handlePassword = (e) => {
     setPassword(e.target.value);
+    // setValues([...values])
   };
 
+  // const handleClickShowPassword =() =>{
+  //   setValues({...values, showPassword: !values.showPassword})
+  // }
   const handleMobile = (e) => {
     setMobile(e.target.value);
   };
@@ -44,7 +49,6 @@ const Signup = () => {
     let isError = false;
     if (fname === "" || !nameRegex.test(fname)) {
       setFnameError(false);
-    
     } else {
       setFnameError(true);
     }
@@ -127,6 +131,17 @@ const Signup = () => {
           size="small"
           fullWidth
           onChange={handlePassword}
+          // type={values.showPassword ? "text" : "password"}
+          // value={values.password}
+          // endAdornment={
+          //   <InputAdornment position="end">
+          //     <IconButton
+          //       onClick={handleClickShowPassword}
+          //     >
+          //       {values.showPassword ? <Visibility /> : <VisibilityOff />}
+          //     </IconButton>
+          //   </InputAdornment>
+          // }
         />
       </div>
       <div className="signup-texfields">

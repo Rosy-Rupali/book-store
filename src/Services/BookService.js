@@ -1,7 +1,7 @@
 import axios from "axios";
 import store from "../store/store.js";
-import {createStore} from 'redux'
-const storeState = store.getState();
+// import {createStore} from 'redux'
+// const storeState = store.getState();
 const baseUrl = "https://new-bookstore-backend.herokuapp.com/";
 const config = {
   headers: {
@@ -21,7 +21,7 @@ export const addCart = async (product_id) => {
     {},
     config
   );
-  store.dispatch({ type: "addCart" });
+  // store.dispatch({ type: "addCart" });
   console.log(response);
   return response;
 };
@@ -63,7 +63,7 @@ export const removeFromCart = async (book_id) => {
     `${baseUrl}bookstore_user/remove_cart_item/${book_id}`,
     config
   );
-  store.dispatch({ type: "substractCart" });
+  // store.dispatch({ type: "subtractCart" });
   console.log(response);
   return response;
 };

@@ -16,6 +16,7 @@ const BookDescription = (props) => {
   
   const [books, setBooks] = useState([]);
   const history = useHistory();
+
   const getAllBooks = () => {
     getBooks()
       .then((response) => {
@@ -33,7 +34,7 @@ const BookDescription = (props) => {
 
   useEffect(() => {
     getAllBooks();
-  }, []);
+  }, [props.book]);
 
   const addToCart = (data) => {
     addCart(data)
@@ -45,7 +46,6 @@ const BookDescription = (props) => {
         console.log(error);
       });
   };
-
   const addToWishList = (productid) => {
     addWishList(productid)
       .then((response) => {
@@ -56,9 +56,12 @@ const BookDescription = (props) => {
         console.log(error);
       });
   };
+
+
+ 
   return (
-    <div>
-      <HomePageHeader />
+    <div className="bookdescription-maincontainer">
+      <HomePageHeader  />
       <div className="container">
         <div className="block1">
           <div className="image-container">
@@ -115,7 +118,7 @@ const BookDescription = (props) => {
               <StarBorderOutlinedIcon className="star-icon" />
               <StarBorderOutlinedIcon className="star-icon" />
             </span>
-            <div className="views">
+            <div className="views" >
               <h6 className="views-tag">Write your review</h6>
             </div>
             <div className="submit">

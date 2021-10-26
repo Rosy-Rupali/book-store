@@ -1,5 +1,5 @@
 .footer-container {
-  height: 20%;
+  height: 7%;
   width: 100%;
   display: flex;
   background-color: #2e1d1e;
@@ -8,6 +8,5 @@
 }
 .footer-para {
   font-size: 13px;
-  text-align: center;
   padding-left: 10%;
 }

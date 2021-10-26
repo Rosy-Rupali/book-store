@@ -22,6 +22,20 @@ describe("test if the main container of cart is working or not", () => {
   it("renders the main div of cart component", () => {
     expect(wrapper.find(".cart-MainContainer").exists()).toBe(true);
   });
+  // it("testing the input fields", () => {
+  //   const comp1 = mount(
+  //     <Provider store={store}>
+  //       <Cart {...props} />
+  //     </Provider>
+  //   );
+  //   const textField = comp1.find(TextField);
+
+  //   textField.props().onChange({ target: { value: "New Task 2" } });
+  //   textField.simulate("change");
+  //   comp1.update();
+
+  //   console.log(comp1.find(TextField).props());
+  // });
 });
 
 describe("renders the cart component", () => {
@@ -69,4 +83,4 @@ describe("renders the cart component", () => {
     });
   });
 });
-// .....
+/********************************************************************************************************* */

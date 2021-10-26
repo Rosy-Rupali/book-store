@@ -12,7 +12,9 @@ const comp = mount(
     <BookDescription />
   </Provider>
 );
-
+const wrapper = shallow(<Provider store={store}>
+  <BookDescription />
+</Provider>);
 describe("test if the main container of book description is working or not", () => {
   it("renders the main div of book description", () => {
     expect(comp.find(".bookdescription-maincontainer").exists()).toBe(true);
@@ -26,34 +28,42 @@ describe("test if the main container of book description is working or not", () 
     const headingElement = screen.getByText("Book Details");
     expect(headingElement).toBeInTheDocument();
   });
-it("should render the buttons", async () => {
-  render(
-    <Provider store={store}>
-      <BookDescription />
-    </Provider>
-  );
-  let clickComponent = screen.getByRole("button", {name: 'ADD TO BAG'});
-  expect(clickComponent).toBeInTheDocument();
+  it("should render the buttons", async () => {
+    render(
+      <Provider store={store}>
+        <BookDescription />
+      </Provider>
+    );
+    let clickComponent = screen.getByRole("button", { name: "ADD TO BAG" });
+    expect(clickComponent).toBeInTheDocument();
+  });
+
+  it("should render the buttons", async () => {
+    let clickComponent = jest.fn();
+    render(
+      <Provider store={store}>
+        <BookDescription />
+      </Provider>
+    );
+    fireEvent.click(screen.queryByText("WISHLIST"));
+    expect(clickComponent).toHaveBeenCalledTimes(0);
+  });
 });
 
-it("should render the buttons", async () => {
-  let clickComponent = jest.fn()
-  render(
-    <Provider store={store}>
-      <BookDescription />
-    </Provider>
-  );
-  fireEvent.click(screen.queryByText('WISHLIST'));
-  expect(clickComponent).toHaveBeenCalledTimes(0);
-});
-
-  // it("should render the paragraph element", async () => {
-  //   render(
-  //     <Provider store={store}>
-  //       <BookDescription />
-  //     </Provider>
-  //   );
-  //   const paragraphElement = screen.getAllByText("Lorem");
-  //   expect(paragraphElement).toContainHTML(p);
-  // });
-});
+/********************************************************************************************************************************* */
+describe("testing the paragraph element", () => {
+  it("testing the paragraph", () => {
+    expect(comp.find('.custDetails-container').childAt(0).type()).toEqual('p');
+  })
+  it("testing the click event of add to bag button", () => {
+    const handleMock = jest.fn()
+    const wrapper1 = shallow(<Provider store={store}>
+      <BookDescription onClick={handleMock} />
+    </Provider>)
+    const addtobagButton = wrapper1.find('.addbag');
+    addtobagButton.simulate('click');
+    // wrapper1.update();
+    expect(handleMock).toHaveBeenCalled();
+    // expect(wrapper.window.location.pathname).toBe('/cart');
+  })
+})

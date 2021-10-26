@@ -4,17 +4,18 @@ import trolley from "../assets/trolley1.png";
 import "../css/BookStoreMain.css";
 import Login from "./Login";
 import Signup from "./Signup";
+
 const BookStoreMain = () => {
-  const [click, setClick] = useState(false);
+  const [click, setClick] = useState(true);
   const handleClick = () => {
     setClick(!click);
   };
-  let show;
+ 
   return (
     <div className="mainContainer-bookstore">
       <div className="container-bookstore">
         <div className="image-heading">
-          <img alt="basket-image" src={trolley} className="trolley" />
+          <img alt="basket-pic" src={trolley} className="trolley" />
           <h4>ONLINE BOOK SHOPPING</h4>
         </div>
         <div className="formContainer-pages">
@@ -34,7 +35,9 @@ const BookStoreMain = () => {
               <h3>SignUp</h3>
             </Button>
           </div>
-          <div className="show">{(show = click ? <Login /> : <Signup />)}</div>
+          <div className="show">
+          {click ? <Login /> : <Signup />}
+          </div>
         </div>
       </div>
     </div>

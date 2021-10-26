@@ -23,7 +23,6 @@ const HomePage = () => {
     getBooks()
       .then((response) => {
         setBooks1(response.data.result);
-        console.log(response.data.result.length);
         setCount(response.data.result.length);
       })
       .catch((error) => {

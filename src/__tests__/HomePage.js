@@ -4,6 +4,7 @@ import Enzyme, { shallow, mount } from "enzyme";
 import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import store from "../store/store.js";
 import { Provider } from "react-redux";
+import DisplayBooks from "../components/DisplayBooks";
 Enzyme.configure({ adapter: new Adapter() });
 
 const comp = shallow(<HomePage />);
@@ -31,4 +32,12 @@ describe("test if the child component are working", () => {
   it("render the footer component", () => {
     expect(wrapper.find(".homepage-footer")).toHaveLength(1);
   });
+  // it("testing the display book component", () => {
+  //   expect(comp.find(".footer-maincontainer")).toHaveLength(0);
+  //   expect(comp.find(".homepage-footer")).toHaveLength(1);
+  //   expect(comp.find(".homepage-footer").dive().find(".footer-maincontainer")).toHaveLength(1);
+  // })
+  // it("testing of the props", () => {
+
+  // })
 });

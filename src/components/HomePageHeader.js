@@ -48,7 +48,7 @@ const HomePageHeader = (props) => {
 
   useEffect(() => {
     props.fetchItems();
-  }, []);
+  }, [props.remove]);
  
   return (
     <div className="mainHeaderContainer">
